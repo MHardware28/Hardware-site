@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hardware | My Personal Site</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="page">
+
+    <header>
+      <h1>HARDWARE</h1>
+
+      <!-- Main navigation: every link points at a section id below -->
+      <nav class="main-nav" aria-label="Main">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button id="theme-toggle" type="button">Dark Mode</button>
+      </nav>
+    </header>
+
+    <main>
+
+      <!-- Section 1: the monitor -->
+      <section class="monitor" id="about" aria-labelledby="about-heading">
+        <div class="bezel">
+          <div class="screen">
+            <div class="screen-text">
+              <h2 id="about-heading">Hi, I'm Hardware</h2>
+              <p>Welcome to my very own portfolio!</p>
+
+              <h3>I am currently doing the following courses:</h3>
+              <ul>
+                <li>Front End Web Development</li>
+                <li>Machine Learning</li>
+                <li>Discrete Mathematics</li>
+                <li>Foundations of Biology 1</li>
+                <li>English Composition</li>
+              </ul>
+            </div>
+
+            <img src="images/IMG_8963.jpeg" alt="Me smiling for a photo after finishing my first hackathon" class="screen-img">
+          </div>
+        </div>
+        <div class="neck"></div>
+        <div class="base"></div>
+      </section>
+
+      <!-- Section 2: filterable project list (script.js builds the list inside #project-list) -->
+      <section class="box" id="projects" aria-labelledby="projects-heading">
+        <h2 id="projects-heading">My Projects</h2>
+
+        <div class="search-row">
+          <label for="project-search">Search projects</label>
+          <input type="search" id="project-search" name="project-search" placeholder="Try &quot;python&quot;">
+        </div>
+
+        <!-- Extra feature: category filter buttons. -->
+        <div class="filter-buttons" id="filter-buttons" role="group" aria-label="Filter projects by category">
+          <button type="button" data-category="All">All</button>
+          <button type="button" data-category="Python">Python</button>
+          <button type="button" data-category="Java">Java</button>
+          <button type="button" data-category="Team">Team</button>
+        </div>
+
+        <p id="project-count" aria-live="polite"></p>
+        <ul id="project-list"></ul>
+      </section>
+
+      <!-- Section 3: contact form + links (In the mouse) -->
+      <section class="contact-row" id="contact" aria-labelledby="contact-heading">
+        <div class="contact-form-wrap">
+          <h2 id="contact-heading">Contact Me</h2>
+
+          <!-- Replace YOUR_FORM_ID with the ID Formspree gives you (see the guide) -->
+          <form id="contact-form" action="https://formspree.io/f/xqppbnon" method="POST" novalidate>
+            <div class="field">
+              <label for="contact-name">Your name</label>
+              <input type="text" id="contact-name" name="name" autocomplete="name">
+            </div>
+
+            <div class="field">
+              <label for="contact-email">Your email</label>
+              <input type="email" id="contact-email" name="email" autocomplete="email">
+            </div>
+
+            <div class="field">
+              <label for="contact-topic">Topic</label>
+              <select id="contact-topic" name="topic">
+                <option value="General">General question</option>
+                <option value="Project">About a project</option>
+                <option value="Collaboration">Collaboration</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="contact-message">Message</label>
+              <textarea id="contact-message" name="message" rows="4"></textarea>
+            </div>
+
+            <!-- script.js handles form submission -->
+            <p id="form-error" class="form-error" role="alert"></p>
+            <button type="submit">Send message</button>
+          </form>
+
+          <div id="form-summary" class="form-summary" aria-live="polite"></div>
+        </div>
+
+        <nav class="mouse" aria-label="Elsewhere">
+          <div class="mouse-shape" aria-hidden="true"></div>
+          <ul>
+            <li><a href="https://github.com/MHardware28">My GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/mhardware28">My LinkedIn</a></li>
+          </ul>
+        </nav>
+      </section>
+
+    </main>
+
+    <footer>
+      <p><a href="#about">Back to top</a></p>
+    </footer>
+
+  </div>
+</body>
+</html>

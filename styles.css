@@ -1,0 +1,373 @@
+/* ---------- Colors (custom properties) ----------
+   Light mode is the default. Dark mode swaps the same variables when
+   <body> has the "dark-mode" class (script.js toggles it).
+   Contrast checked: --ink on --paper is about 13:1 in light and 14:1 in dark. */
+:root {
+  --ink: #2a2d4a;          /* pen color: all text and outlines */
+  --paper: #fdfdfb;        /* page surface */
+  --rule: #c3cce8;         /* blue notebook lines (decorative only) */
+  --margin: #e88a8a;       /* red margin line (decorative only) */
+  --desk: #5b5753;         /* the "table" behind the notebook */
+  --field: #ffffff;        /* input background */
+  --placeholder: #5a5e7e;  /* placeholder text, about 6.5:1 on --field */
+  --error: #a8071a;        /* error text, about 7:1 on --paper */
+  --focus: #1a56db;        /* keyboard focus ring */
+  --line-height: 28px;     /* matches the notebook lines */
+
+  --font-body: "Segoe Print", "Comic Sans MS", "Bradley Hand", cursive;
+  --font-title: "Arial Rounded MT Bold", "Trebuchet MS", Arial, sans-serif;
+}
+
+body.dark-mode {
+  --ink: #f4f4fa;
+  --paper: #1d2040;
+  --rule: #343867;
+  --margin: #e88a8a;
+  --desk: #14152b;
+  --field: #2a2e57;
+  --placeholder: #b9bddb;  /* about 7:1 on dark --field */
+  --error: #ffb3bd;        /* about 9:1 on dark --paper */
+  --focus: #8ab4ff;
+}
+
+/* ---------- Basics ---------- */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 24px 12px;
+  background: var(--desk);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: var(--line-height);
+}
+
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 40px 24px 90px;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(to right, transparent 60px, var(--margin) 60px,
+                    var(--margin) 62px, transparent 62px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 27px,
+                              var(--rule) 27px, var(--rule) 28px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+h1, h2, h3 { margin: 0; line-height: 1.2; }
+h2 { font-size: 1.6rem; }
+h3 { font-size: 1.1rem; margin-top: 16px; }
+ul { margin: 8px 0 0; padding-left: 22px; }
+a { color: inherit; text-decoration: underline; }
+a:hover { text-decoration-thickness: 3px; }
+
+/* Visible keyboard focus on everything interactive */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* ---------- Header and navigation ---------- */
+header { text-align: center; margin-bottom: 36px; }
+
+h1 {
+  font-family: var(--font-title);
+  font-size: clamp(2.5rem, 9vw, 5.5rem);
+  letter-spacing: 0.06em;
+  color: var(--ink);
+}
+
+/* Flexbox layout #1: the nav row */
+.main-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------- Buttons (shared) ---------- */
+button {
+  font: inherit;
+  padding: 6px 16px;
+  color: var(--paper);
+  background: var(--ink);
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+button:hover { opacity: 0.85; }
+
+/* ---------- Monitor ---------- */
+.monitor {
+  max-width: 680px;
+  margin: 0 auto 48px;
+}
+
+.bezel {
+  border: 3px solid var(--ink);
+  border-radius: 30px 24px 34px 26px;   /* slightly wobbly, like hand-drawn */
+  padding: 20px;
+}
+
+.screen {
+  display: flex;
+  gap: 28px;
+  align-items: stretch;
+}
+
+.screen-text { flex: 1; }
+
+.screen-img {
+  flex: 0 0 240px;
+  width: 240px;
+  height: auto;
+  min-height: 100%;
+  object-fit: cover;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+}
+
+.screen p { margin: 12px 0 0; max-width: 60ch; }
+
+.neck {
+  width: 45%;
+  height: 40px;
+  margin: 0 auto;
+  border-left: 3px solid var(--ink);
+  border-right: 3px solid var(--ink);
+}
+
+.base {
+  width: 70%;
+  height: 24px;
+  margin: 0 auto;
+  border: 3px solid var(--ink);
+  border-radius: 4px;
+}
+
+/* ---------- Projects "memory card" ----------
+   clip-path can't draw a border, so the outer shape is filled with ink
+   and an inner copy (::before) filled with paper sits 3px inside it. */
+.box {
+  --cut: 44px;
+  --card: polygon(
+    0 0,
+    calc(100% - var(--cut)) 0,
+    100% var(--cut),
+    100% 30%,
+    calc(100% - 12px) calc(30% + 12px),
+    calc(100% - 12px) calc(30% + 60px),
+    100% calc(30% + 72px),
+    100% 100%,
+    0 100%
+  );
+  position: relative;
+  min-height: 340px;
+  margin-bottom: 48px;
+  padding: 28px 44px 28px 28px;
+  background: var(--ink);
+  clip-path: var(--card);
+}
+
+.box::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  background: var(--paper);
+  clip-path: var(--card);
+}
+
+.box > * { position: relative; }   /* keep text above the paper-colored layer */
+
+/* Search box */
+.search-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+/* Category buttons */
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* A button for the active category: JS adds/removes the "active" class */
+.filter-buttons button { padding: 2px 14px; }
+
+.filter-buttons button.active {
+  color: var(--ink);
+  background: var(--paper);
+  text-decoration: underline;
+}
+
+#project-list { list-style: none; padding: 0; }
+
+#project-list li {
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-left: 4px solid var(--ink);
+}
+
+/* ---------- Forms ---------- */
+label { display: block; }
+
+input,
+select,
+textarea {
+  width: 100%;
+  max-width: 420px;
+  padding: 6px 10px;
+  font: inherit;
+  color: var(--ink);
+  background: var(--field);
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+}
+
+input[type="search"] { max-width: 280px; }
+
+input::placeholder { color: var(--placeholder); opacity: 1; }
+
+.field { margin-top: 12px; }
+
+.form-error {
+  min-height: var(--line-height);
+  margin: 12px 0 0;
+  color: var(--error);
+  font-weight: bold;
+}
+
+.form-summary {
+  margin-top: 16px;
+}
+
+/* The summary only gets a border when JS puts something inside it */
+.form-summary:not(:empty) {
+  padding: 12px 16px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+}
+
+/* ---------- Contact row: form + mouse ---------- */
+/* Flexbox layout #2 */
+.contact-row {
+  display: flex;
+  gap: 48px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.contact-form-wrap { flex: 1 1 340px; }
+
+/* ---------- Mouse ---------- */
+.mouse {
+  position: relative;
+  flex: 0 0 220px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* the tilted oval body */
+.mouse-shape {
+  position: absolute;
+  inset: 0;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  transform: rotate(-35deg);
+}
+
+/* the line between the buttons */
+.mouse-shape::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 46%;
+  border-left: 3px solid var(--ink);
+}
+
+/* the scroll wheel */
+.mouse-shape::after {
+  content: "";
+  position: absolute;
+  top: 14%;
+  left: 50%;
+  width: 26px;
+  height: 54px;
+  transform: translateX(-50%);
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper);
+}
+
+/* the links sit on top, not tilted */
+.mouse ul {
+  position: relative;
+  margin: 70px 0 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+
+/* ---------- Footer ---------- */
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  justify-content: space-between;
+  margin-top: 40px;
+  font-size: 0.95rem;
+}
+
+footer p { margin: 0; }
+
+/* ---------- Small screens (works down to 400px and below) ---------- */
+@media (max-width: 700px) {
+  body { padding: 12px 6px; }
+
+  .page {
+    padding: 20px 14px 20px 56px;
+    background-position: -34px 0, 0 0;   /* move the red margin line left */
+  }
+
+  .screen { flex-direction: column; }
+
+  .screen-img {
+    flex: none;
+    width: 100%;
+    max-height: 320px;
+  }
+
+  .box { padding: 24px 36px 24px 16px; }
+
+  .contact-row { flex-direction: column; align-items: stretch; }
+  .mouse { align-self: center; width: 220px; }
+}
+
+/* Respect people who ask for less motion */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
